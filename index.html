@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnav Photography Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Arnav's Photography Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="about">
+        <h2>About Me</h2>
+        <p>This is a brief introduction about Arnav.</p>
+    </section>
+    
+    <section id="portfolio">
+        <h2>My Work</h2>
+        <div class="gallery">
+            <img src="photo1.jpg" alt="Photo 1">
+            <img src="photo2.jpg" alt="Photo 2">
+            <img src="photo3.jpg" alt="Photo 3">
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: arnav@example.com</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Arnav Photography. All rights reserved.</p>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $("a").on("click", function(event) {
+                event.preventDefault();
+                var target = $(this).attr("href");
+                $("html, body").animate({
+                    scrollTop: $(target).offset().top
+                }, 1000);
+            });
+
+            // Counter animation
+            $(".counter").each(function() {
+                var $this = $(this);
+                $this.prop('Counter', 0).animate({
+                    Counter: $this.text()
+                }, {
+                    duration: 4000,
+                    easing: 'swing',
+                    step: function(now) {
+                        $this.text(Math.ceil(now));
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
