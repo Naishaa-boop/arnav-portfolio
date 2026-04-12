@@ -1,75 +1,1005 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arnav Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
-    <style>
-        /* Magnetic Cursor Effects */
-        .magnetic-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(255, 0, 0, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            transition: transform 0.1s;
-        }
-        /* Advanced Animations */
-        .animated {
-            transition: all 0.5s ease;
-        }
-        /* Parallax Scrolling Effect */
-        .parallax {
-            background-image: url('background.jpg');
-            height: 100vh;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        /* Immersive Video Transitions */
-        .video-transition {
-            position: relative;
-            overflow: hidden;
-        }
-        .video-transition video {
-            width: 100%;
-            height: auto;
-            opacity: 0;
-            transition: opacity 1s;
-        }
-        .video-transition.active video {
-            opacity: 1;
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Arnav — Visual Storyteller</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0c0b09;
+  --cream:#f2ede4;
+  --gold:#b8975a;
+  --gold-light:#d4b07a;
+  --dust:#7a7060;
+  --mist:rgba(242,237,228,0.06);
+}
+html{scroll-behavior:smooth;cursor:none}
+body{background:var(--ink);color:var(--cream);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none;}
+
+/* PAGE TRANSITION OVERLAY */
+.page-transition{position:fixed;inset:0;background:var(--ink);z-index:9000;pointer-events:none;opacity:0;transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1);}
+.page-transition.active{opacity:1;}
+
+/* SECTION TRANSITION WRAPPER */
+section{opacity:1;transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1);}
+section.transitioning{opacity:0;}
+
+/* ENHANCED CURSOR - MAGNETIC & INTERACTIVE */
+#cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.15s,height 0.15s;mix-blend-mode:difference;box-shadow:0 0 20px rgba(184,151,90,0.3);}
+#cursor.active{width:24px;height:24px;box-shadow:0 0 40px rgba(184,151,90,0.6);}
+#cursor-ring{position:fixed;width:40px;height:40px;border:2px solid rgba(184,151,90,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,border-color 0.3s;box-shadow:inset 0 0 20px rgba(184,151,90,0.1);}
+#cursor-ring.active{width:60px;height:60px;border-color:var(--gold);box-shadow:0 0 30px rgba(184,151,90,0.3),inset 0 0 20px rgba(184,151,90,0.2);}
+
+/* LOADER - ENHANCED */
+#loader{position:fixed;inset:0;z-index:10000;background:var(--ink);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity 1.2s ease,visibility 1.2s;}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;letter-spacing:0.12em;overflow:hidden;}
+.loader-name span{display:inline-block;transform:translateY(100%);animation:slideUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards;}
+.loader-name span:nth-child(1){animation-delay:0.1s}
+.loader-name span:nth-child(2){animation-delay:0.2s}
+.loader-name span:nth-child(3){animation-delay:0.3s}
+.loader-name span:nth-child(4){animation-delay:0.4s}
+.loader-name span:nth-child(5){animation-delay:0.5s}
+.loader-bar-wrap{width:180px;height:1px;background:rgba(242,237,228,0.1);overflow:hidden;}
+.loader-bar{height:100%;background:var(--gold);animation:loadBar 2s cubic-bezier(0.4,0,0.2,1) forwards;}
+@keyframes loadBar{from{width:0}to{width:100%}}
+@keyframes slideUp{from{transform:translateY(110%)}to{transform:translateY(0)}}
+
+/* NAV - ENHANCED WITH BLUR & GLOW */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:2rem 3.5rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s;}
+#nav::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(12,11,9,0.8),transparent);backdrop-filter:blur(10px);pointer-events:none;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:0.18em;color:var(--cream);text-decoration:none;position:relative;z-index:1;transition:all 0.3s;}
+.nav-logo:hover{color:var(--gold);text-shadow:0 0 20px rgba(184,151,90,0.4);}
+.nav-links{display:flex;gap:3rem;list-style:none;position:relative;z-index:1;}
+.nav-links a{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(242,237,228,0.55);text-decoration:none;transition:all 0.3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{width:100%;}
+.nav-index{font-family:'Cormorant Garamond',serif;font-size:0.75rem;color:rgba(242,237,228,0.25);position:relative;z-index:1;letter-spacing:0.1em;}
+
+/* HERO - ENHANCED WITH PARALLAX & GRADIENT SHIFT */
+#hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-slides-wrap{position:absolute;inset:0;}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 2.5s ease;}
+.hero-slide.active{opacity:1}
+.hs1{background:linear-gradient(160deg,#141008 0%,#1c1a0e 30%,#0a1014 70%,#050709 100%)}
+.hs2{background:linear-gradient(200deg,#0e1510 0%,#122214 40%,#080d0a 100%)}
+.hs3{background:linear-gradient(140deg,#120c07 0%,#1f1208 40%,#0a0806 100%)}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,transparent 30%,rgba(12,11,9,0.5) 100%),linear-gradient(to bottom,rgba(12,11,9,0.2) 0%,transparent 30%,transparent 60%,rgba(12,11,9,0.9) 100%);}
+.hero-grain{position:absolute;inset:0;opacity:0.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");pointer-events:none;}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 2rem;max-width:1000px;}
+.hero-eyebrow{font-size:0.62rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:2.5rem;opacity:0;animation:fadeIn 1s 2.8s forwards;}
+.hero-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,8vw,8rem);font-weight:300;line-height:1.08;letter-spacing:0.02em;margin-bottom:2rem;opacity:0;animation:fadeIn 1.2s 3s forwards;}
+.hero-headline em{font-style:italic;color:rgba(242,237,228,0.5);}
+.hero-sub{font-size:0.85rem;letter-spacing:0.12em;color:rgba(242,237,228,0.45);font-weight:300;max-width:480px;margin:0 auto 3.5rem;line-height:1.9;opacity:0;animation:fadeIn 1s 3.3s forwards;}
+.hero-cta{display:inline-flex;align-items:center;gap:1rem;padding:1rem 2.5rem;border:1px solid rgba(184,151,90,0.4);color:var(--cream);text-decoration:none;font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;position:relative;overflow:hidden;opacity:0;animation:fadeIn 1s 3.6s forwards;transition:all 0.4s;cursor:pointer;}
+.hero-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+.hero-cta:hover::before{transform:scaleX(1)}
+.hero-cta:hover{color:var(--ink);border-color:var(--gold);box-shadow:0 10px 40px rgba(184,151,90,0.3);}
+.hero-cta span{position:relative;z-index:1}
+.cta-arr{position:relative;z-index:1;width:24px;height:1px;background:currentColor;display:inline-block;transition:width 0.3s;}
+.cta-arr::after{content:'';position:absolute;right:0;top:-3px;width:6px;height:6px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:rotate(45deg);}
+.hero-cta:hover .cta-arr{width:36px}
+.slide-indicators{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;gap:0.7rem;z-index:3;}
+.slide-dot{width:20px;height:1px;background:rgba(242,237,228,0.2);cursor:none;transition:all 0.3s;position:relative;}
+.slide-dot:hover{background:rgba(242,237,228,0.5);}
+.slide-dot.active{background:var(--gold);width:40px;box-shadow:0 0 15px rgba(184,151,90,0.4);}
+.hero-scroll-hint{position:absolute;bottom:2.5rem;right:3.5rem;z-index:3;display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:0;animation:fadeIn 1s 4s forwards;}
+.scroll-text{font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:rgba(242,237,228,0.3);writing-mode:vertical-rl;}
+.scroll-track{width:1px;height:60px;background:rgba(242,237,228,0.1);overflow:hidden;position:relative}
+.scroll-runner{position:absolute;top:0;left:0;right:0;height:30px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);animation:runDown 2s 4s infinite;}
+@keyframes runDown{from{transform:translateY(-100%)}to{transform:translateY(300%)}}
+
+/* MARQUEE - ENHANCED WITH GRADIENT TEXT */
+.marquee-wrap{overflow:hidden;padding:4rem 0;border-top:1px solid rgba(242,237,228,0.04);border-bottom:1px solid rgba(242,237,228,0.04);}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 22s linear infinite;position:relative;}
+.marquee-track:hover{animation-play-state:paused;}
+.marquee-item{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:rgba(242,237,228,0.12);padding:0 3rem;letter-spacing:0.1em;transition:color 0.3s;}
+.marquee-item.g{color:rgba(184,151,90,0.3)}
+.marquee-item:hover{color:rgba(242,237,228,0.25);}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ABOUT - ENHANCED WITH GLOW EFFECT */
+#about{min-height:100vh;background:var(--cream);color:var(--ink);display:grid;grid-template-columns:1fr 1fr;}
+.about-visual{position:relative;overflow:hidden;}
+.about-img-placeholder{width:100%;height:100%;min-height:600px;background:linear-gradient(160deg,#1c1a0e,#0e1510,#120c07);display:flex;align-items:flex-end;padding:3rem;position:relative;overflow:hidden;}
+.about-img-placeholder::before{content:'';position:absolute;inset:-50%;background:radial-gradient(circle,rgba(184,151,90,0.1) 0%,transparent 70%);animation:pulse 4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.about-img-caption{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(242,237,228,0.3);position:relative;z-index:1;}
+.about-vline{position:absolute;top:3rem;right:0;width:1px;height:60%;background:rgba(12,11,9,0.1);}
+.about-text{padding:8rem 5rem;display:flex;flex-direction:column;justify-content:center;}
+.s-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.1;}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.8rem);font-weight:300;line-height:1.15;margin-bottom:3rem;}
+.about-body{font-size:0.95rem;line-height:2;color:#3a3530;font-weight:300;max-width:420px;}
+.about-body p+p{margin-top:1.5rem}
+.about-stat-row{display:flex;gap:3rem;margin-top:4rem;padding-top:3rem;border-top:1px solid rgba(12,11,9,0.1);}
+.about-stat{transition:all 0.3s;perspective:1000px;}
+.about-stat:hover{transform:translateY(-10px) rotateX(5deg);}
+.about-stat .num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--gold);line-height:1;transition:all 0.6s ease;}
+.about-stat .num.counted{animation:countUp 2s ease-out;}
+.about-stat .slbl{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a7060;margin-top:0.4rem;}
+
+@keyframes countUp{
+  from{transform:translateY(20px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+/* PORTFOLIO - ENHANCED WITH 3D EFFECTS */
+#portfolio{padding:0;background:var(--ink)}
+.gallery-intro{padding:8rem 3.5rem 5rem;display:flex;justify-content:space-between;align-items:flex-end;}
+.gallery-intro-right{font-size:0.75rem;color:var(--dust);letter-spacing:0.1em;line-height:1.8;max-width:260px;text-align:right;}
+.gallery-cat-title{padding:0 3.5rem 2rem;display:flex;align-items:center;gap:2rem;perspective:1000px;}
+.cat-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;font-style:italic;color:rgba(242,237,228,0.3);transition:all 0.4s;}
+.gallery-cat-title:hover .cat-name{color:var(--cream);text-shadow:0 0 20px rgba(184,151,90,0.3);transform:skewY(-2deg);}
+.cat-line{flex:1;height:1px;background:rgba(242,237,228,0.06);transition:background 0.4s;}
+.gallery-cat-title:hover .cat-line{background:rgba(184,151,90,0.4);}
+.cat-count{font-size:0.6rem;letter-spacing:0.2em;color:var(--dust)}
+.h-scroll{display:flex;gap:4px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scrollbar-width:none;padding:0 3.5rem 4px;cursor:none;perspective:1000px;}
+.h-scroll::-webkit-scrollbar{display:none}
+.grid-cell{flex:0 0 auto;position:relative;overflow:hidden;cursor:none;border-radius:4px;perspective:1200px;}
+.grid-cell.tall{width:380px;height:520px}
+.grid-cell.wide{width:600px;height:380px}
+.grid-cell.sq{width:380px;height:380px}
+.cell-media{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
+.grid-cell:hover .cell-media{transform:scale(1.1) rotateY(5deg)}
+.p-w1{background:linear-gradient(160deg,#060d14 0%,#0d1c28 60%,#040a10 100%)}
+.p-w2{background:linear-gradient(200deg,#08101a 0%,#111f2e 100%)}
+.p-w3{background:linear-gradient(140deg,#070e18 0%,#0f1d2c 100%)}
+.p-n1{background:linear-gradient(160deg,#060e06 0%,#0d1c0e 60%,#04100a 100%)}
+.p-n2{background:linear-gradient(200deg,#081008 0%,#121f12 100%)}
+.p-n3{background:linear-gradient(140deg,#070e08 0%,#0f1d10 100%)}
+.p-pp1{background:linear-gradient(160deg,#110806 0%,#1e120c 60%,#0a0604 100%)}
+.p-pp2{background:linear-gradient(200deg,#140a06 0%,#20100a 100%)}
+.p-pp3{background:linear-gradient(140deg,#100806 0%,#1c0e0a 100%)}
+.cell-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,9,0.85) 0%,transparent 55%);opacity:0;transition:opacity 0.5s;}
+.grid-cell:hover .cell-overlay{opacity:1}
+.cell-info{position:absolute;bottom:0;left:0;right:0;padding:2rem;transform:translateY(12px);opacity:0;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);}
+.grid-cell:hover .cell-info{transform:translateY(0);opacity:1}
+.cell-num{font-size:0.6rem;letter-spacing:0.25em;color:var(--gold);margin-bottom:0.4rem}
+.cell-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300}
+.cell-expand{position:absolute;top:1.5rem;right:1.5rem;width:36px;height:36px;border:1px solid rgba(242,237,228,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0.8);transition:all 0.4s;background:rgba(12,11,9,0.4);backdrop-filter:blur(8px);cursor:none;}
+.grid-cell:hover .cell-expand{opacity:1;transform:scale(1);box-shadow:0 0 20px rgba(184,151,90,0.2);}
+.cell-expand:hover{border-color:var(--gold);box-shadow:0 0 30px rgba(184,151,90,0.4);}
+.cell-expand svg{width:14px;height:14px;fill:none;stroke:var(--cream);stroke-width:1.5;transition:stroke 0.3s;}
+.cell-expand:hover svg{stroke:var(--gold);}
+.drag-hint{padding:0.5rem 3.5rem 2rem;display:flex;align-items:center;gap:1.5rem;opacity:0.35;}
+.drag-hint-line{width:40px;height:1px;background:var(--dust)}
+.drag-hint-text{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dust)}
+
+/* VIDEO - ENHANCED WITH CINEMATIC TRANSITIONS */
+#video-section{position:relative;background:var(--ink);padding:8rem 0;overflow:hidden;}
+.video-inner{position:relative;max-width:1000px;margin:0 auto;padding:0 3.5rem;}
+.video-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.1;margin-bottom:4rem;text-align:center;}
+.video-heading em{font-style:italic;color:var(--gold)}
+.video-frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:#050505;cursor:none;border-radius:8px;box-shadow:0 20px 80px rgba(12,11,9,0.8);transition:all 0.4s;}
+.video-frame:hover{box-shadow:0 30px 100px rgba(184,151,90,0.2);}
+.video-frame video{width:100%;height:100%;object-fit:cover;display:block;}
+.video-placeholder-bg{position:absolute;inset:0;background:linear-gradient(160deg,#0d1520 0%,#08100e 50%,#120d07 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity 0.5s;}
+.video-placeholder-bg.hidden{opacity:0;pointer-events:none}
+.upload-hint{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(242,237,228,0.25);transition:color 0.4s;}
+.play-btn{width:72px;height:72px;border:1px solid rgba(184,151,90,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(184,151,90,0.08);transition:all 0.4s;cursor:none;position:relative;}
+.play-btn::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid rgba(184,151,90,0.2);animation:pulseRing 2s infinite;}
+.play-btn:hover{background:rgba(184,151,90,0.2);border-color:var(--gold);transform:scale(1.2);box-shadow:0 0 30px rgba(184,151,90,0.4);}
+.play-btn svg{width:22px;height:22px;fill:var(--gold);margin-left:4px;transition:all 0.3s;}
+.play-btn:hover svg{fill:var(--cream);transform:scale(1.1);}
+@keyframes pulseRing{0%{transform:scale(1);opacity:0.5}100%{transform:scale(1.6);opacity:0}}
+.video-controls{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(to top,rgba(12,11,9,0.85) 0%,transparent 60%);opacity:0;transition:opacity 0.4s;}
+.video-frame:hover .video-controls{opacity:1}
+.vc-row{display:flex;align-items:center;gap:1.5rem}
+.vc-btn{background:none;border:none;cursor:none;display:flex;align-items:center;transition:all 0.3s;}
+.vc-btn:hover{opacity:0.7;transform:scale(1.1);}
+.vc-btn svg{width:18px;height:18px;fill:var(--cream);transition:fill 0.3s;}
+.vc-btn:hover svg{fill:var(--gold);}
+.vc-progress{flex:1;height:2px;background:rgba(242,237,228,0.2);position:relative;cursor:pointer;border-radius:2px;transition:height 0.3s;}
+.vc-progress:hover{height:4px;background:rgba(242,237,228,0.4);}
+.vc-bar{position:absolute;left:0;top:0;bottom:0;background:var(--gold);width:0%;transition:width 0.1s;border-radius:2px;box-shadow:0 0 10px rgba(184,151,90,0.4);}
+.vc-time{font-size:0.65rem;letter-spacing:0.1em;color:rgba(242,237,228,0.6)}
+.video-drop{margin-top:2rem;border:2px dashed rgba(184,151,90,0.2);padding:2rem;text-align:center;transition:all 0.3s;border-radius:8px;background:rgba(184,151,90,0.01);}
+.video-drop:hover{border-color:rgba(184,151,90,0.5);background:rgba(184,151,90,0.05);}
+.video-drop.dragover{border-color:var(--gold);background:rgba(184,151,90,0.1);}
+.drop-lbl{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--dust);}
+.drop-lbl span{color:var(--gold);cursor:pointer;transition:all 0.3s;}
+.drop-lbl span:hover{text-shadow:0 0 15px rgba(184,151,90,0.4);}
+#vfile{display:none}
+
+/* SPACES - ENHANCED WITH HOVER DEPTH */
+#spaces{min-height:100vh;background:var(--cream);color:var(--ink);display:flex;position:relative;overflow:hidden;}
+.spaces-left{width:42%;padding:8rem 4rem 8rem 3.5rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid rgba(12,11,9,0.06);}
+.spaces-right{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;}
+.spaces-cell{overflow:hidden;position:relative;border-radius:4px;perspective:1200px;}
+.spaces-cell:first-child{grid-row:span 2}
+.sc-bg{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1),filter 0.4s;filter:brightness(0.9);}
+.spaces-cell:hover .sc-bg{transform:scale(1.08) rotateY(3deg);filter:brightness(1.1);}
+.spaces-left .s-title{margin-bottom:2.5rem}
+.spaces-body{font-size:0.95rem;line-height:2;color:#4a4540;font-weight:300;margin-bottom:3rem;}
+.spaces-quote{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;font-style:italic;color:var(--gold);line-height:1.5;padding-left:1.5rem;border-left:2px solid var(--gold);transition:all 0.3s;}
+.spaces-quote:hover{padding-left:2rem;color:#d4b07a;text-shadow:0 0 15px rgba(184,151,90,0.2);}
+
+/* SERVICES - ENHANCED WITH ACCENT GLOW */
+#services{background:var(--ink);padding:10rem 3.5rem;}
+.services-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6rem;}
+.services-top-right{font-size:0.75rem;color:var(--dust);line-height:1.9;max-width:300px;text-align:right;}
+.service-row{display:flex;align-items:flex-start;padding:3rem 0;border-top:1px solid rgba(242,237,228,0.06);gap:3rem;position:relative;overflow:hidden;transition:all 0.3s;perspective:1000px;}
+.service-row::after{content:'';position:absolute;inset:0;background:rgba(242,237,228,0.02);transform:scaleY(0);transform-origin:bottom;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+.service-row:hover::after{transform:scaleY(1)}
+.service-row:hover{padding-left:1rem;transform:skewY(-1deg);}
+.svc-num{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:rgba(242,237,228,0.15);min-width:50px;margin-top:0.2rem;transition:all 0.3s;}
+.service-row:hover .svc-num{color:var(--gold);}
+.svc-name{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;min-width:320px;transition:all 0.3s;}
+.service-row:hover .svc-name{color:var(--gold);text-shadow:0 0 20px rgba(184,151,90,0.3);}
+.svc-desc{font-size:0.82rem;line-height:1.9;color:var(--dust);font-weight:300;max-width:380px;padding-top:0.6rem;}
+.svc-arr{margin-left:auto;margin-top:0.5rem;width:32px;height:32px;border:1px solid rgba(242,237,228,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg);transition:all 0.4s;flex-shrink:0;}
+.service-row:hover .svc-arr{border-color:var(--gold);transform:rotate(0deg);background:var(--gold);box-shadow:0 0 20px rgba(184,151,90,0.3);}
+.svc-arr svg{width:14px;height:14px;stroke:var(--cream);fill:none;stroke-width:1.5;transition:stroke 0.3s;}
+.service-row:hover .svc-arr svg{stroke:var(--ink);}
+
+/* COLLAB - ENHANCED */
+#collab{background:#0a0908;padding:8rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;border-top:1px solid rgba(242,237,228,0.04);}
+.collab-tag{display:inline-block;font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;border:1px solid rgba(184,151,90,0.3);color:var(--gold);padding:0.4rem 1rem;margin-bottom:2rem;transition:all 0.3s;border-radius:4px;}
+.collab-tag:hover{border-color:var(--gold);box-shadow:0 0 15px rgba(184,151,90,0.2);background:rgba(184,151,90,0.05);}
+.collab-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:300;line-height:1.15;margin-bottom:2rem;}
+.collab-body{font-size:0.9rem;line-height:2;color:var(--dust);font-weight:300;}
+.collab-right{position:relative;padding:3rem;border:1px solid rgba(242,237,228,0.05);border-radius:8px;background:rgba(242,237,228,0.01);transition:all 0.4s;}
+.collab-right:hover{border-color:rgba(184,151,90,0.3);box-shadow:0 0 40px rgba(184,151,90,0.1);}
+.collab-right::before{content:'';position:absolute;top:-1px;left:2rem;right:2rem;height:1px;background:var(--gold);}
+.collab-note{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;font-style:italic;line-height:1.6;color:rgba(242,237,228,0.6);}
+.collab-note em{color:var(--cream);font-style:normal}
+.collab-avail{margin-top:2rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);}
+
+/* CONTACT - ENHANCED WITH INTERACTIVE ELEMENTS */
+#contact{min-height:100vh;background:var(--cream);color:var(--ink);display:flex;align-items:center;position:relative;overflow:hidden;}
+.contact-bg-text{position:absolute;font-family:'Cormorant Garamond',serif;font-size:20vw;font-weight:300;color:rgba(12,11,9,0.04);white-space:nowrap;letter-spacing:-0.02em;bottom:-2vw;right:-2vw;pointer-events:none;line-height:1;user-select:none;}
+.contact-inner{max-width:900px;margin:0 auto;padding:8rem 3.5rem;position:relative;z-index:1;}
+.contact-pre{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;}
+.contact-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7vw,7rem);font-weight:300;line-height:1.05;margin-bottom:4rem;}
+.contact-headline em{font-style:italic;color:rgba(12,11,9,0.3)}
+.contact-links-row{display:flex;align-items:center;gap:4rem;flex-wrap:wrap;}
+.contact-link-item{display:flex;flex-direction:column;gap:0.5rem;}
+.c-link-label{font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--dust);}
+.c-link-val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--ink);text-decoration:none;position:relative;overflow:hidden;display:inline-block;transition:all 0.3s;cursor:pointer;}
+.c-link-val::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+.c-link-val:hover{color:var(--gold);transform:translateX(10px);}
+.c-link-val:hover::after{transform:scaleX(1)}
+.contact-divider{width:1px;height:60px;background:rgba(12,11,9,0.1);}
+
+/* FOOTER - ENHANCED */
+footer{background:var(--ink);padding:3rem 3.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(242,237,228,0.05);transition:all 0.3s;}
+footer:hover{background:rgba(12,11,9,0.95);border-top-color:rgba(184,151,90,0.2);}
+.foot-copy{font-size:0.62rem;letter-spacing:0.15em;color:rgba(242,237,228,0.2);transition:color 0.3s;}
+footer:hover .foot-copy{color:rgba(242,237,228,0.4);}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;color:rgba(242,237,228,0.25);letter-spacing:0.15em;transition:all 0.3s;}
+footer:hover .foot-brand{color:var(--gold);text-shadow:0 0 15px rgba(184,151,90,0.2);}
+
+/* LIGHTBOX - ENHANCED WITH SMOOTH ANIMATIONS */
+#lightbox{position:fixed;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;background:rgba(12,11,9,0);transition:background 0.5s;backdrop-filter:blur(0px);}
+#lightbox.open{display:flex;background:rgba(12,11,9,0.96);backdrop-filter:blur(10px);}
+.lb-content{position:relative;max-width:88vw;max-height:88vh;opacity:0;transform:scale(0.92);transition:opacity 0.5s cubic-bezier(0.4,0,0.2,1),transform 0.5s cubic-bezier(0.4,0,0.2,1);}
+#lightbox.open .lb-content{opacity:1;transform:scale(1)}
+.lb-placeholder{width:80vw;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(242,237,228,0.2);}
+.lb-close{position:absolute;top:-3rem;right:0;background:none;border:none;cursor:pointer;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(242,237,228,0.5);transition:all 0.3s;display:flex;align-items:center;gap:0.8rem;}
+.lb-close:hover{color:var(--cream);text-shadow:0 0 10px rgba(184,151,90,0.2);}
+.lb-close::before{content:'';width:20px;height:1px;background:currentColor;display:inline-block;}
+
+/* REVEALS - ENHANCED WITH STAGGER */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1);}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1);}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.d1{transition-delay:0.15s}.d2{transition-delay:0.3s}.d3{transition-delay:0.45s}.d4{transition-delay:0.6s}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+::selection{background:var(--gold);color:var(--ink)}
+a,button{cursor:none}
+
+/* SMOOTH SCROLL PROGRESS BAR */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:9999;transition:width 0.3s;}
+
+/* SCROLL TRIGGER ANIMATIONS */
+.scroll-trigger{opacity:0;transform:translateY(60px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.scroll-trigger.in-view{opacity:1;transform:translateY(0);}
+
+.scroll-trigger-left{opacity:0;transform:translateX(-60px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.scroll-trigger-left.in-view{opacity:1;transform:translateX(0);}
+
+.scroll-trigger-right{opacity:0;transform:translateX(60px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.scroll-trigger-right.in-view{opacity:1;transform:translateX(0);}
+
+.scroll-trigger-scale{opacity:0;transform:scale(0.9);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1);}
+.scroll-trigger-scale.in-view{opacity:1;transform:scale(1);}
+
+@media(max-width:900px){
+  #about{grid-template-columns:1fr}
+  .about-text{padding:5rem 2rem}
+  .about-visual{display:none}
+  #spaces{flex-direction:column}
+  .spaces-left{width:100%;padding:5rem 2rem}
+  .spaces-right{height:50vw;grid-template-rows:auto}
+  .spaces-cell:first-child{grid-row:auto}
+  #collab{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .services-top{flex-direction:column;align-items:flex-start;gap:1rem}
+  .services-top-right{text-align:left}
+  .service-row{flex-wrap:wrap}
+  .svc-name{min-width:0;font-size:1.6rem}
+  #nav{padding:1.5rem 1.5rem}
+  .gallery-intro{flex-direction:column;gap:1rem;align-items:flex-start}
+  .h-scroll{padding:0 1.5rem 4px}
+  .grid-cell.tall{width:260px;height:380px}
+  .grid-cell.wide{width:400px;height:260px}
+  .grid-cell.sq{width:260px;height:260px}
+  footer{flex-direction:column;gap:1rem}
+  #services{padding:6rem 1.5rem}
+  #collab{padding:6rem 1.5rem}
+}
+</style>
 </head>
 <body>
-    <div class="magnetic-cursor"></div>
-    <header class="parallax">
-        <h1>Welcome to My Portfolio</h1>
-    </header>
-    <section class="video-transition" id="video-section">
-        <video src="intro.mp4" autoplay muted loop></video>
-    </section>
-    <script>
-        // Magnetic Cursor Effect
-        const cursor = document.querySelector('.magnetic-cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        });
-        // Video Transition
-        const videoSection = document.getElementById('video-section');
-        videoSection.addEventListener('mouseenter', () => {
-            videoSection.classList.add('active');
-        });
-        videoSection.addEventListener('mouseleave', () => {
-            videoSection.classList.remove('active');
-        });
-    </script>
+
+<!-- PAGE TRANSITION OVERLAY -->
+<div class="page-transition" id="pageTransition"></div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<div id="loader">
+  <div class="loader-name"><span>A</span><span>r</span><span>n</span><span>a</span><span>v</span></div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav id="nav">
+  <a href="#hero" class="nav-logo">Arnav</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#video-section">Film</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Connect</a></li>
+  </ul>
+  <span class="nav-index" id="slide-counter">01 / 03</span>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-slides-wrap">
+    <div class="hero-slide hs1 active"></div>
+    <div class="hero-slide hs2"></div>
+    <div class="hero-slide hs3"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Visual Storytelling — Photography & Film</p>
+    <h1 class="hero-headline">I capture what<br/>a place <em>feels like,</em><br/>not just how it looks.</h1>
+    <p class="hero-sub">Photography rooted in real moments — across people, nature, and lived experiences.</p>
+    <a href="#portfolio" class="hero-cta"><span>View Work</span><span class="cta-arr"></span></a>
+  </div>
+  <div class="slide-indicators">
+    <div class="slide-dot active" onclick="goSlide(0)"></div>
+    <div class="slide-dot" onclick="goSlide(1)"></div>
+    <div class="slide-dot" onclick="goSlide(2)"></div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-track"><div class="scroll-runner"></div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Wildlife</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Nature & Landscapes</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">People & Life</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Travel & Spaces</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Cinematic Film</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Visual Direction</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Wildlife</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Nature & Landscapes</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">People & Life</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Travel & Spaces</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Cinematic Film</span><span class="marquee-item g">—</span>
+    <span class="marquee-item">Visual Direction</span><span class="marquee-item g">—</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal-left">
+    <div class="about-img-placeholder">
+      <span class="about-img-caption">Your portrait — replace with real image</span>
+    </div>
+    <div class="about-vline"></div>
+  </div>
+  <div class="about-text">
+    <p class="s-label reveal">The Photographer</p>
+    <h2 class="about-title reveal d1">Presence<br/>over<br/><em style="font-style:italic;color:var(--gold)">perfection.</em></h2>
+    <div class="about-body reveal d2">
+      <p>Arnav is a photographer drawn to real, unfiltered moments — whether it's the stillness of nature, the unpredictability of wildlife, or the quiet expressions of people.</p>
+      <p>His work isn't about staged perfection. It's about capturing presence — the kind that makes you feel like you were there.</p>
+      <p>Now expanding into travel and spaces, his approach remains the same: observe deeply, shoot honestly, and tell stories that stay.</p>
+    </div>
+    <div class="about-stat-row reveal d3">
+      <div class="about-stat" data-count="7"><div class="num">0+</div><div class="slbl">Years shooting</div></div>
+      <div class="about-stat" data-count="3"><div class="num">0</div><div class="slbl">Disciplines</div></div>
+      <div class="about-stat" data-count="0"><div class="num">∞</div><div class="slbl">Real moments</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="gallery-intro">
+    <div>
+      <p class="s-label reveal">Selected Work</p>
+      <h2 class="s-title reveal d1">The Portfolio</h2>
+    </div>
+    <p class="gallery-intro-right reveal d2">Drag to explore each series.<br/>Click any frame to expand.</p>
+  </div>
+
+  <!-- WILDLIFE -->
+  <div class="gallery-cat-title"><span class="cat-name">Wildlife</span><div class="cat-line"></div><span class="cat-count">Series 01</span></div>
+  <div class="drag-hint"><div class="drag-hint-line"></div><span class="drag-hint-text">Drag to explore</span></div>
+  <div class="h-scroll">
+    <div class="grid-cell wide" onclick="openLb('Wildlife — In the stillness')">
+      <div class="cell-media p-w1"></div>
+      <div class="cell-overlay"></div>
+      <div class="cell-info"><p class="cell-num">01 / Wildlife</p><p class="cell-name">In the stillness</p></div>
+      <div class="cell-expand" onclick="event.stopPropagation();openLb('Wildlife — In the stillness')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+    </div>
+    <div class="grid-cell tall" onclick="openLb('Wildlife — Unguarded')">
+      <div class="cell-media p-w2"></div>
+      <div class="cell-overlay"></div>
+      <div class="cell-info"><p class="cell-num">02 / Wildlife</p><p class="cell-name">Unguarded</p></div>
+      <div class="cell-expand" onclick="event.stopPropagation();openLb('Wildlife — Unguarded')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+    </div>
+    <div class="grid-cell sq" onclick="openLb('Wildlife — The threshold')">
+      <div class="cell-media p-w3"></div>
+      <div class="cell-overlay"></div>
+      <div class="cell-info"><p class="cell-num">03 / Wildlife</p><p class="cell-name">The threshold</p></div>
+      <div class="cell-expand" onclick="event.stopPropagation();openLb('Wildlife — The threshold')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+    </div>
+    <div class="grid-cell wide" onclick="openLb('Wildlife — Before dusk')">
+      <div class="cell-media p-w1" style="filter:hue-rotate(12deg)"></div>
+      <div class="cell-overlay"></div>
+      <div class="cell-info"><p class="cell-num">04 / Wildlife</p><p class="cell-name">Before dusk</p></div>
+      <div class="cell-expand" onclick="event.stopPropagation();openLb('Wildlife — Before dusk')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+    </div>
+  </div>
+
+  <!-- NATURE -->
+  <div style="margin-top:4rem">
+    <div class="gallery-cat-title"><span class="cat-name">Nature & Landscapes</span><div class="cat-line"></div><span class="cat-count">Series 02</span></div>
+    <div class="drag-hint"><div class="drag-hint-line"></div><span class="drag-hint-text">Drag to explore</span></div>
+    <div class="h-scroll">
+      <div class="grid-cell tall" onclick="openLb('Nature — First light')">
+        <div class="cell-media p-n1"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">01 / Nature</p><p class="cell-name">First light</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('Nature — First light')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+      <div class="grid-cell wide" onclick="openLb('Nature — Ancient canopy')">
+        <div class="cell-media p-n2"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">02 / Nature</p><p class="cell-name">Ancient canopy</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('Nature — Ancient canopy')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+      <div class="grid-cell sq" onclick="openLb('Nature — Still water')">
+        <div class="cell-media p-n3"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">03 / Nature</p><p class="cell-name">Still water</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('Nature — Still water')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+      <div class="grid-cell tall" onclick="openLb('Nature — The descent')">
+        <div class="cell-media p-n1" style="filter:brightness(0.8) saturate(1.3)"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">04 / Nature</p><p class="cell-name">The descent</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('Nature — The descent')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PEOPLE -->
+  <div style="margin-top:4rem;padding-bottom:6rem">
+    <div class="gallery-cat-title"><span class="cat-name">People & Life</span><div class="cat-line"></div><span class="cat-count">Series 03</span></div>
+    <div class="drag-hint"><div class="drag-hint-line"></div><span class="drag-hint-text">Drag to explore</span></div>
+    <div class="h-scroll">
+      <div class="grid-cell wide" onclick="openLb('People — Quiet corner')">
+        <div class="cell-media p-pp1"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">01 / People</p><p class="cell-name">Quiet corner</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('People — Quiet corner')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+      <div class="grid-cell sq" onclick="openLb('People — Unposed')">
+        <div class="cell-media p-pp2"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">02 / People</p><p class="cell-name">Unposed</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('People — Unposed')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+      <div class="grid-cell tall" onclick="openLb('People — The gaze')">
+        <div class="cell-media p-pp3"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">03 / People</p><p class="cell-name">The gaze</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('People — The gaze')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+      <div class="grid-cell wide" onclick="openLb('People — In transit')">
+        <div class="cell-media p-pp1" style="filter:sepia(0.3)"></div>
+        <div class="cell-overlay"></div>
+        <div class="cell-info"><p class="cell-num">04 / People</p><p class="cell-name">In transit</p></div>
+        <div class="cell-expand" onclick="event.stopPropagation();openLb('People — In transit')"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video-section">
+  <div class="video-inner">
+    <p class="s-label reveal" style="text-align:center">Film & Motion</p>
+    <h2 class="video-heading reveal d1">Moving stories.<br/><em>Still feeling.</em></h2>
+    <div class="video-frame reveal d2" id="videoFrame">
+      <video id="mainVideo" style="display:none;width:100%;height:100%;object-fit:cover">
+        <source src="" type="video/mp4"/>
+      </video>
+      <div class="video-placeholder-bg" id="videoPlaceholder">
+        <div class="play-btn" id="playBtn" onclick="handlePlay()">
+          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+        </div>
+        <p class="upload-hint" id="uploadHint">Drop your reel below to preview — or add src directly in the code</p>
+      </div>
+      <div class="video-controls" id="videoControls">
+        <div class="vc-row">
+          <button class="vc-btn" onclick="togglePlay()"><svg viewBox="0 0 24 24" id="playIcon"><path d="M5 3l14 9-14 9V3z"/></svg></button>
+          <div class="vc-progress" id="progressBar" onclick="seekVideo(event)"><div class="vc-bar" id="vcBar"></div></div>
+          <span class="vc-time" id="timeDisplay">0:00</span>
+          <button class="vc-btn" onclick="toggleMute()"><svg viewBox="0 0 24 24" id="muteIcon"><path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+          <button class="vc-btn" onclick="toggleFS()"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="video-drop" id="dropZone">
+      <p class="drop-lbl">Drop an MP4 / MOV here to preview your reel, or <span onclick="document.getElementById('vfile').click()">browse files</span></p>
+      <input type="file" id="vfile" accept="video/*"/>
+    </div>
+  </div>
+</section>
+
+<!-- SPACES -->
+<section id="spaces">
+  <div class="spaces-left">
+    <p class="s-label reveal">The Evolution</p>
+    <h2 class="s-title reveal d1">Beyond Subjects —<br/><em style="font-style:italic">Into Spaces</em></h2>
+    <p class="spaces-body reveal d2">The same eye used to capture wildlife and human emotion translates naturally into spaces — light, mood, texture, and the way people interact with environments.</p>
+    <blockquote class="spaces-quote reveal d3">"Not just to photograph places,<br/>but to capture how they feel."</blockquote>
+  </div>
+  <div class="spaces-right">
+    <div class="spaces-cell"><div class="sc-bg" style="background:linear-gradient(160deg,#0a1a10,#061008);min-height:100%"></div></div>
+    <div class="spaces-cell"><div class="sc-bg" style="background:linear-gradient(160deg,#0e1520,#060c14);min-height:100%"></div></div>
+    <div class="spaces-cell"><div class="sc-bg" style="background:linear-gradient(160deg,#120e08,#0a0806);min-height:100%"></div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-top">
+    <div>
+      <p class="s-label reveal">Capabilities</p>
+      <h2 class="s-title reveal d1">What I offer</h2>
+    </div>
+    <p class="services-top-right reveal d2">Each collaboration is selective.<br/>Each project is treated as a body of work.</p>
+  </div>
+  <div>
+    <div class="service-row reveal scroll-trigger">
+      <span class="svc-num">01</span>
+      <h3 class="svc-name">Natural Light Photography</h3>
+      <p class="svc-desc">Spaces, people, and moments shot in their most honest form. No studio setups, no forced perfection — just the kind of light that already exists.</p>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="service-row reveal d1 scroll-trigger">
+      <span class="svc-num">02</span>
+      <h3 class="svc-name">Lifestyle & Storytelling Visuals</h3>
+      <p class="svc-desc">Imagery that communicates feeling first. Built for platforms and audiences that respond to authenticity, not polish.</p>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="service-row reveal d2 scroll-trigger">
+      <span class="svc-num">03</span>
+      <h3 class="svc-name">Cinematic Short-Form Content</h3>
+      <p class="svc-desc">Reels and short-form video with a cinematic sensibility. Motion that stays with you long after the loop ends.</p>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+    <div class="service-row reveal d3 scroll-trigger">
+      <span class="svc-num">04</span>
+      <h3 class="svc-name">Visual Direction</h3>
+      <p class="svc-desc">Creative guidance for brands and platforms building a coherent visual language across all digital touchpoints.</p>
+      <div class="svc-arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLAB -->
+<section id="collab">
+  <div class="collab-left">
+    <span class="collab-tag">In Collaboration</span>
+    <h2 class="collab-title reveal">Content that looks good —<br/>and <em style="font-style:italic;color:var(--gold)">performs.</em></h2>
+    <p class="collab-body reveal d1">Projects can include marketing and website strategy through collaboration with a digital marketing specialist — enabling content that not only looks extraordinary, but works hard in the world.<br/><br/>Visual storytelling paired with strategic distribution.</p>
+  </div>
+  <div class="collab-right reveal d2">
+    <p class="collab-note"><em>"Currently open to selective collaborations</em> with unique stays, brands, and experiences worth capturing."</p>
+    <p class="collab-avail">— Open for 2025 projects</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-bg-text">Connect</div>
+  <div class="contact-inner">
+    <p class="contact-pre reveal">Let's make something</p>
+    <h2 class="contact-headline reveal d1">If your story<br/>is worth <em>capturing,</em><br/>let's connect.</h2>
+    <div class="contact-links-row reveal d2">
+      <div class="contact-link-item">
+        <span class="c-link-label">Email</span>
+        <a href="mailto:hello@arnav.photography" class="c-link-val">hello@arnav.photography</a>
+      </div>
+      <div class="contact-divider"></div>
+      <div class="contact-link-item">
+        <span class="c-link-label">Instagram</span>
+        <a href="https://instagram.com/arnav" target="_blank" class="c-link-val">@arnav</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-copy">© 2025 Arnav. All rights reserved.</span>
+  <span class="foot-brand">Visual Storyteller</span>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLb(event)">
+  <div class="lb-content">
+    <button class="lb-close" onclick="closeLb()">Close</button>
+    <div class="lb-placeholder">
+      <div style="width:2px;height:40px;background:rgba(184,151,90,0.3);margin:0 auto"></div>
+      <p id="lbLabel">Image</p>
+      <p style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(242,237,228,0.12)">Replace gradient placeholders with real images to view here</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ SMOOTH PAGE TRANSITIONS ============
+const pageTransition = document.getElementById('pageTransition');
+
+function triggerPageTransition(callback) {
+  pageTransition.classList.add('active');
+  setTimeout(() => {
+    if (callback) callback();
+    pageTransition.classList.remove('active');
+  }, 300);
+}
+
+// Smooth transitions on nav links
+document.querySelectorAll('.nav-links a, .hero-cta').forEach(link => {
+  link.addEventListener('click', (e) => {
+    if (link.getAttribute('href').startsWith('#')) {
+      e.preventDefault();
+      const target = link.getAttribute('href');
+      triggerPageTransition(() => {
+        const targetSection = document.querySelector(target);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+  });
+});
+
+// ============ ADVANCED SCROLL ANIMATIONS ============
+const observerOptions = {
+  threshold: 0.2,
+  rootMargin: '0px 0px -100px 0px'
+};
+
+const scrollObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, observerOptions);
+
+// Observe all scroll trigger elements
+document.querySelectorAll('.scroll-trigger, .scroll-trigger-left, .scroll-trigger-right, .scroll-trigger-scale').forEach(el => {
+  scrollObserver.observe(el);
+});
+
+// ============ ANIMATED COUNTER ============
+function animateCounter(element, target) {
+  const duration = 2000;
+  const start = Date.now();
+  const startValue = 0;
+  
+  function update() {
+    const progress = (Date.now() - start) / duration;
+    if (progress < 1) {
+      const current = Math.floor(startValue + (target - startValue) * easeOutCubic(progress));
+      element.textContent = current + (target > 0 ? '+' : '');
+      requestAnimationFrame(update);
+    } else {
+      element.textContent = target + (target > 0 ? '+' : '');
+      element.classList.add('counted');
+    }
+  }
+  
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+  
+  update();
+}
+
+// Trigger counters on scroll
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+      const count = parseInt(entry.target.getAttribute('data-count')) || 0;
+      animateCounter(entry.target.querySelector('.num'), count);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.about-stat').forEach(stat => {
+  counterObserver.observe(stat);
+});
+
+// ============ ENHANCED CURSOR ============
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;
+  my=e.clientY;
+  cur.style.left=mx+'px';
+  cur.style.top=my+'px';
+});
+
+(function animR(){
+  rx+=(mx-rx)*0.15;
+  ry+=(my-ry)*0.15;
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+  requestAnimationFrame(animR);
+})();
+
+// Magnetic cursor effect on interactive elements
+document.querySelectorAll('a,button,.grid-cell,.play-btn,.service-row,.spaces-cell').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cur.classList.add('active');
+    ring.classList.add('active');
+  });
+  el.addEventListener('mouseleave',()=>{
+    cur.classList.remove('active');
+    ring.classList.remove('active');
+  });
+});
+
+// ============ PROGRESS BAR ============
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll',()=>{
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = (scrollTop / docHeight) * 100;
+  progressBar.style.width = scrolled + '%';
+},{passive:true});
+
+// ============ LOADER ============
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('done');
+  },2400);
+});
+
+// ============ HERO SLIDESHOW ============
+const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.slide-dot'),ctr=document.getElementById('slide-counter');
+let cur_s=0,timer;
+
+function goSlide(n){
+  slides[cur_s].classList.remove('active');
+  dots[cur_s].classList.remove('active');
+  cur_s=n;
+  slides[cur_s].classList.add('active');
+  dots[cur_s].classList.add('active');
+  ctr.textContent=String(cur_s+1).padStart(2,'0')+' / 0'+slides.length;
+  clearInterval(timer);
+  timer=setInterval(()=>goSlide((cur_s+1)%slides.length),6000);
+}
+timer=setInterval(()=>goSlide((cur_s+1)%slides.length),6000);
+
+// ============ SCROLL REVEAL ============
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>io.observe(el));
+
+// ============ DRAG SCROLL WITH SMOOTH INERTIA ============
+document.querySelectorAll('.h-scroll').forEach(el=>{
+  let down=false,startX,sl,velocity=0,lastX=0,lastTime=0;
+  
+  el.addEventListener('mousedown',e=>{
+    down=true;
+    startX=e.pageX-el.offsetLeft;
+    sl=el.scrollLeft;
+    lastX=e.pageX;
+    lastTime=Date.now();
+  });
+  
+  el.addEventListener('mouseleave',()=>down=false);
+  el.addEventListener('mouseup',()=>{
+    down=false;
+    const timeDiff = Date.now() - lastTime;
+    velocity = (lastX - (event?.pageX || 0)) / timeDiff;
+    let currentVel = velocity;
+    const inertiaInterval = setInterval(() => {
+      if (Math.abs(currentVel) < 0.1) {
+        clearInterval(inertiaInterval);
+        return;
+      }
+      el.scrollLeft += currentVel * 10;
+      currentVel *= 0.95;
+    }, 16);
+  });
+  
+  el.addEventListener('mousemove',e=>{
+    if(!down)return;
+    e.preventDefault();
+    lastX = e.pageX;
+    lastTime = Date.now();
+    el.scrollLeft=sl-(e.pageX-el.offsetLeft-startX)*1.5;
+  });
+  
+  let tx,ts;
+  el.addEventListener('touchstart',e=>{tx=e.touches[0].pageX;ts=el.scrollLeft;},{passive:true});
+  el.addEventListener('touchmove',e=>{el.scrollLeft=ts-(e.touches[0].pageX-tx);},{passive:true});
+});
+
+// ============ LIGHTBOX ============
+function openLb(label){
+  const lb=document.getElementById('lightbox');
+  document.getElementById('lbLabel').textContent=label;
+  lb.style.display='flex';
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>lb.classList.add('open'));});
+  document.body.style.overflow='hidden';
+}
+
+function closeLb(e){
+  if(e&&e.target.closest('.lb-content')&&!e.target.closest('.lb-close'))return;
+  const lb=document.getElementById('lightbox');
+  lb.classList.remove('open');
+  setTimeout(()=>{lb.style.display='none';},500);
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+
+// ============ ENHANCED VIDEO PLAYER ============
+const vid=document.getElementById('mainVideo'),ph=document.getElementById('videoPlaceholder'),bar=document.getElementById('vcBar'),tdisp=document.getElementById('timeDisplay');
+
+function handlePlay(){
+  if(vid.src&&vid.src!==window.location.href){
+    ph.classList.add('hidden');
+    vid.style.display='block';
+    vid.play();
+  }
+  else{
+    const h=document.getElementById('uploadHint');
+    h.style.color='rgba(184,151,90,0.9)';
+    setTimeout(()=>h.style.color='',2000);
+  }
+}
+
+function togglePlay(){vid.paused?vid.play():vid.pause();}
+
+function toggleMute(){
+  vid.muted=!vid.muted;
+  const i=document.getElementById('muteIcon');
+  i.innerHTML=vid.muted?'<path d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/>':'<path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>';
+}
+
+function toggleFS(){
+  !document.fullscreenElement?document.getElementById('videoFrame').requestFullscreen():document.exitFullscreen();
+}
+
+function seekVideo(e){
+  const r=document.getElementById('progressBar').getBoundingClientRect();
+  vid.currentTime=((e.clientX-r.left)/r.width)*vid.duration;
+}
+
+vid.addEventListener('timeupdate',()=>{
+  if(!vid.duration)return;
+  bar.style.width=(vid.currentTime/vid.duration*100)+'%';
+  const m=Math.floor(vid.currentTime/60),s=Math.floor(vid.currentTime%60).toString().padStart(2,'0');
+  tdisp.textContent=m+':'+s;
+});
+
+vid.addEventListener('play',()=>{
+  document.getElementById('playIcon').innerHTML='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+});
+
+vid.addEventListener('pause',()=>{
+  document.getElementById('playIcon').innerHTML='<path d="M5 3l14 9-14 9V3z"/>';
+});
+
+// ============ FILE DROP & VIDEO UPLOAD ============
+const dz=document.getElementById('dropZone'),fi=document.getElementById('vfile');
+
+function loadVid(f){
+  if(!f||!f.type.startsWith('video/'))return;
+  vid.src=URL.createObjectURL(f);
+  vid.style.display='block';
+  ph.classList.add('hidden');
+  vid.play();
+  dz.style.borderColor='rgba(184,151,90,0.5)';
+  dz.style.background='rgba(184,151,90,0.05)';
+}
+
+fi.addEventListener('change',e=>loadVid(e.target.files[0]));
+
+dz.addEventListener('dragover',e=>{
+  e.preventDefault();
+  dz.classList.add('dragover');
+  dz.style.borderColor='rgba(184,151,90,0.6)';
+  dz.style.background='rgba(184,151,90,0.04)';
+});
+
+dz.addEventListener('dragleave',()=>{
+  dz.classList.remove('dragover');
+  dz.style.borderColor='';
+  dz.style.background='';
+});
+
+dz.addEventListener('drop',e=>{
+  e.preventDefault();
+  dz.classList.remove('dragover');
+  dz.style.borderColor='';
+  dz.style.background='';
+  loadVid(e.dataTransfer.files[0]);
+});
+
+// ============ ENHANCED NAV ============
+window.addEventListener('scroll',()=>{
+  const nav=document.getElementById('nav');
+  if(window.scrollY>80){
+    nav.style.background='rgba(12,11,9,0.96)';
+    nav.style.backdropFilter='blur(20px)';
+  }else{
+    nav.style.background='';
+    nav.style.backdropFilter='';
+  }
+},{passive:true});
+
+// ============ PARALLAX EFFECT ON SCROLL ============
+window.addEventListener('scroll',()=>{
+  const scrollPos = window.scrollY;
+  const heroSlide = document.querySelector('.hero-slide.active');
+  if(heroSlide) {
+    heroSlide.style.backgroundPosition = `center ${scrollPos * 0.5}px`;
+  }
+},{passive:true});
+</script>
 </body>
 </html>
