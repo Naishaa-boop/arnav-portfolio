@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnav Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        /* Magnetic Cursor Effects */
+        .magnetic-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 0, 0, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: transform 0.1s;
+        }
+        /* Advanced Animations */
+        .animated {
+            transition: all 0.5s ease;
+        }
+        /* Parallax Scrolling Effect */
+        .parallax {
+            background-image: url('background.jpg');
+            height: 100vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        /* Immersive Video Transitions */
+        .video-transition {
+            position: relative;
+            overflow: hidden;
+        }
+        .video-transition video {
+            width: 100%;
+            height: auto;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .video-transition.active video {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="magnetic-cursor"></div>
+    <header class="parallax">
+        <h1>Welcome to My Portfolio</h1>
+    </header>
+    <section class="video-transition" id="video-section">
+        <video src="intro.mp4" autoplay muted loop></video>
+    </section>
+    <script>
+        // Magnetic Cursor Effect
+        const cursor = document.querySelector('.magnetic-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        });
+        // Video Transition
+        const videoSection = document.getElementById('video-section');
+        videoSection.addEventListener('mouseenter', () => {
+            videoSection.classList.add('active');
+        });
+        videoSection.addEventListener('mouseleave', () => {
+            videoSection.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
