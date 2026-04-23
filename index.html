@@ -38,6 +38,7 @@ html{scroll-behavior:smooth}body{background:#0c0b09;color:#f2ede4;font-family:'S
 .marquee-item{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:rgba(242,237,228,0.12);padding:0 3rem}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 #about{min-height:100vh;background:#f2ede4;color:#0c0b09;padding:8rem 5rem;display:grid;grid-template-columns:1fr 1fr}
+.about-visual{background-image:url('portrait.jpg');background-size:cover;background-position:center}
 .about-text{display:flex;flex-direction:column;justify-content:center}
 .s-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:#b8975a;margin-bottom:1.5rem}
 .about-title{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:300;margin-bottom:3rem}
@@ -55,11 +56,8 @@ html{scroll-behavior:smooth}body{background:#0c0b09;color:#f2ede4;font-family:'S
 .h-scroll::-webkit-scrollbar{display:none}
 .grid-cell{flex:0 0 auto;position:relative;overflow:hidden}
 .grid-cell.tall{width:380px;height:520px}.grid-cell.wide{width:600px;height:380px}.grid-cell.sq{width:380px;height:380px}
-.cell-media{width:100%;height:100%;background-size:cover;transition:transform 0.8s}
+.cell-media{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.8s}
 .grid-cell:hover .cell-media{transform:scale(1.1)}
-.p-w1{background:linear-gradient(160deg,#060d14 0%,#0d1c28 60%,#040a10 100%)}.p-w2{background:linear-gradient(200deg,#08101a 0%,#111f2e 100%)}.p-w3{background:linear-gradient(140deg,#070e18 0%,#0f1d2c 100%)}
-.p-n1{background:linear-gradient(160deg,#060e06 0%,#0d1c0e 60%,#04100a 100%)}.p-n2{background:linear-gradient(200deg,#081008 0%,#121f12 100%)}.p-n3{background:linear-gradient(140deg,#070e08 0%,#0f1d10 100%)}
-.p-pp1{background:linear-gradient(160deg,#110806 0%,#1e120c 60%,#0a0604 100%)}.p-pp2{background:linear-gradient(200deg,#140a06 0%,#20100a 100%)}.p-pp3{background:linear-gradient(140deg,#100806 0%,#1c0e0a 100%)}
 .cell-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,9,0.85) 0%,transparent 55%);opacity:0;transition:opacity 0.5s}
 .grid-cell:hover .cell-overlay{opacity:1}
 .cell-info{position:absolute;bottom:0;left:0;right:0;padding:2rem;transform:translateY(12px);opacity:0;transition:all 0.5s}
@@ -79,7 +77,7 @@ html{scroll-behavior:smooth}body{background:#0c0b09;color:#f2ede4;font-family:'S
 .spaces-left{width:42%;padding:8rem 4rem;display:flex;flex-direction:column;justify-content:center}
 .spaces-right{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px}
 .spaces-cell{overflow:hidden}.spaces-cell:first-child{grid-row:span 2}
-.sc-bg{width:100%;height:100%;background-size:cover;transition:transform 0.8s}.spaces-cell:hover .sc-bg{transform:scale(1.08)}
+.sc-bg{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.8s}.spaces-cell:hover .sc-bg{transform:scale(1.08)}
 #services{background:#0c0b09;padding:10rem 3.5rem}
 .services-top{display:flex;justify-content:space-between;margin-bottom:6rem}
 .service-row{display:flex;padding:3rem 0;border-top:1px solid rgba(242,237,228,0.06);gap:3rem;transition:all 0.3s}
@@ -143,7 +141,7 @@ footer{background:#0c0b09;padding:3rem 3.5rem;display:flex;justify-content:space
   </div>
 </div>
 <section id="about">
-  <div></div>
+  <div class="about-visual"></div>
   <div class="about-text">
     <p class="s-label">The Photographer</p>
     <h2 class="about-title">Presence over perfection.</h2>
@@ -162,16 +160,16 @@ footer{background:#0c0b09;padding:3rem 3.5rem;display:flex;justify-content:space
   <div class="gallery-intro"><h2 class="s-title">The Portfolio</h2></div>
   <div class="gallery-cat-title"><span class="cat-name">Wildlife</span><div class="cat-line"></div></div>
   <div class="h-scroll">
-    <div class="grid-cell wide"><div class="cell-media p-w1"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">In the stillness</p></div></div>
-    <div class="grid-cell tall"><div class="cell-media p-w2"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">Unguarded</p></div></div>
-    <div class="grid-cell sq"><div class="cell-media p-w3"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">The threshold</p></div></div>
+    <div class="grid-cell wide"><div class="cell-media" style="background-image:url('wildlife-1.jpg')"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">In the stillness</p></div></div>
+    <div class="grid-cell tall"><div class="cell-media" style="background-image:url('wildlife-2.jpg')"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">Unguarded</p></div></div>
+    <div class="grid-cell sq"><div class="cell-media" style="background-image:url('wildlife-3.jpg')"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">The threshold</p></div></div>
   </div>
   <div style="margin-top:4rem">
     <div class="gallery-cat-title"><span class="cat-name">Nature</span><div class="cat-line"></div></div>
     <div class="h-scroll">
-      <div class="grid-cell tall"><div class="cell-media p-n1"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">First light</p></div></div>
-      <div class="grid-cell wide"><div class="cell-media p-n2"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">Ancient canopy</p></div></div>
-      <div class="grid-cell sq"><div class="cell-media p-n3"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">Still water</p></div></div>
+      <div class="grid-cell tall"><div class="cell-media" style="background-image:url('nature-1.jpg')"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">First light</p></div></div>
+      <div class="grid-cell wide"><div class="cell-media" style="background-image:url('nature-2.jpg')"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">Ancient canopy</p></div></div>
+      <div class="grid-cell sq"><div class="cell-media" style="background-image:url('nature-3.jpg')"></div><div class="cell-overlay"></div><div class="cell-info"><p class="cell-name">Still water</p></div></div>
     </div>
   </div>
 </section>
@@ -179,14 +177,12 @@ footer{background:#0c0b09;padding:3rem 3.5rem;display:flex;justify-content:space
   <div class="video-inner">
     <h2 class="video-heading">Moving stories.</h2>
     <div class="video-frame" id="videoFrame">
-      <video id="mainVideo" style="display:none"></video>
+      <video id="mainVideo" style="width:100%;height:100%;object-fit:cover">
+        <source src="reel.mp4" type="video/mp4"/>
+      </video>
       <div class="video-placeholder-bg" id="videoPlaceholder">
         <div class="play-btn" onclick="handlePlay()"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z" fill="currentColor"/></svg></div>
       </div>
-    </div>
-    <div style="margin-top:2rem;border:2px dashed rgba(184,151,90,0.2);padding:2rem;text-align:center;border-radius:8px">
-      <p style="font-size:0.65rem;color:#7a7060">Drop video or <span onclick="document.getElementById('vfile').click()" style="color:#b8975a;cursor:pointer">browse</span></p>
-      <input type="file" id="vfile" accept="video/*" style="display:none"/>
     </div>
   </div>
 </section>
@@ -196,9 +192,9 @@ footer{background:#0c0b09;padding:3rem 3.5rem;display:flex;justify-content:space
     <p>Light, mood, texture, and the way people interact with environments.</p>
   </div>
   <div class="spaces-right">
-    <div class="spaces-cell"><div class="sc-bg" style="background:linear-gradient(160deg,#0a1a10,#061008)"></div></div>
-    <div class="spaces-cell"><div class="sc-bg" style="background:linear-gradient(160deg,#0e1520,#060c14)"></div></div>
-    <div class="spaces-cell"><div class="sc-bg" style="background:linear-gradient(160deg,#120e08,#0a0806)"></div></div>
+    <div class="spaces-cell"><div class="sc-bg" style="background-image:url('space-1.jpg')"></div></div>
+    <div class="spaces-cell"><div class="sc-bg" style="background-image:url('space-2.jpg')"></div></div>
+    <div class="spaces-cell"><div class="sc-bg" style="background-image:url('space-3.jpg')"></div></div>
   </div>
 </section>
 <section id="services">
@@ -218,7 +214,7 @@ footer{background:#0c0b09;padding:3rem 3.5rem;display:flex;justify-content:space
     <div class="contact-links-row">
       <div>
         <span class="c-link-label">Email</span>
-        <a href="mailto:hello@arnav.photography" class="c-link-val">hello@arnav.photography</a>
+        <a href="mailto:arnavagarwal2202@gmail.com" class="c-link-val">hello@arnav.photography</a>
       </div>
     </div>
   </div>
@@ -236,12 +232,7 @@ function goSlide(n){slides[cur_s].classList.remove('active');dots[cur_s].classLi
 timer=setInterval(()=>goSlide((cur_s+1)%slides.length),6000);
 document.querySelectorAll('.h-scroll').forEach(el=>{let down=false,startX,sl;el.addEventListener('mousedown',e=>{down=true;startX=e.pageX;sl=el.scrollLeft});el.addEventListener('mouseleave',()=>down=false);el.addEventListener('mouseup',()=>down=false);el.addEventListener('mousemove',e=>{if(!down)return;el.scrollLeft=sl-(e.pageX-startX)*1.5})});
 const vid=document.getElementById('mainVideo'),ph=document.getElementById('videoPlaceholder');
-function handlePlay(){if(vid.src){ph.classList.add('hidden');vid.style.display='block';vid.play()}else{alert('Upload a video first')}}
-const fi=document.getElementById('vfile');
-function loadVid(f){if(!f||!f.type.startsWith('video/'))return;vid.src=URL.createObjectURL(f);vid.style.display='block';ph.classList.add('hidden');vid.play()}
-fi.addEventListener('change',e=>loadVid(e.target.files[0]));
-document.querySelector('[style*="Drop"]').addEventListener('dragover',e=>{e.preventDefault()});
-document.querySelector('[style*="Drop"]').addEventListener('drop',e=>{e.preventDefault();loadVid(e.dataTransfer.files[0])});
+function handlePlay(){if(vid.src){ph.classList.add('hidden');vid.play()}else{alert('Video will load when you upload reel.mp4')}}
 window.addEventListener('scroll',()=>{const nav=document.getElementById('nav');if(window.scrollY>80){nav.style.background='rgba(12,11,9,0.96)';nav.style.backdropFilter='blur(20px)'}else{nav.style.background='';nav.style.backdropFilter=''}});
 </script>
 </body>
